@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chartino Investment | Premium NEPSE Trading</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.8)), 
+                  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23000000"/><path d="M0 0L100 100" stroke="%23202020" stroke-width="1"/><path d="M100 0L0 100" stroke="%23202020" stroke-width="1"/></svg>');
+      color: #f5f5f5;
+      min-height: 100vh;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1) 0%, transparent 80%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.85));
+      padding: 25px 40px;
+      text-align: center;
+      box-shadow: 0 5px 25px rgba(255,215,0,0.15);
+      border-bottom: 1px solid rgba(255,215,0,0.3);
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, gold, transparent);
+    }
+
+    header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 0 0 15px rgba(255,215,0,0.5);
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    header h1::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, gold, transparent);
+    }
+
+    nav {
+      margin-top: 20px;
+    }
+
+    nav a {
+      color: #e0e0e0;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 8px 0;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: gold;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 80px 40px;
+      text-align: center;
+      background: rgba(10, 10, 10, 0.7);
+      margin: 50px auto;
+      max-width: 1000px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,215,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, transparent, gold, transparent);
+    }
+
+    section h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      color: gold;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255,215,0,0.3);
+      position: relative;
+      display: inline-block;
+    }
+
+    section h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, gold, transparent);
+    }
+
+    section p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Why Choose Us Section */
+    #choose {
+      background: rgba(15, 15, 15, 0.75);
+    }
+
+    #choose p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      padding: 15px 25px;
+      background: rgba(0,0,0,0.4);
+      border-left: 3px solid gold;
+      border-radius: 3px;
+      text-align: left;
+      max-width: 700px;
+    }
+
+    #choose p::before {
+      content: "✓";
+      color: gold;
+      font-weight: bold;
+      margin-right: 15px;
+      font-size: 1.5rem;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 35px;
+      margin: 20px 15px;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(145deg, #25D366, #128C7E);
+      color: white;
+    }
+
+    .btn-whatsapp:hover {
+      background: linear-gradient(145deg, #128C7E, #25D366);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .btn-facebook {
+      background: linear-gradient(145deg, #1877F2, #0e5cbf);
+      color: white;
+    }
+
+    .btn-facebook:hover {
+      background: linear-gradient(145deg, #0e5cbf, #1877F2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .btn i {
+      margin-right: 10px;
+      font-size: 1.3rem;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: rgba(0,0,0,0.9);
+      color: #aaa;
+      font-size: 1rem;
+      margin-top: 80px;
+      border-top: 1px solid rgba(255,215,0,0.2);
+      position: relative;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, gold, transparent);
+    }
+
+    /* Decorative Elements */
+    .crown-icon {
+      display: inline-block;
+      margin: 0 15px;
+      color: gold;
+      font-size: 1.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      nav a {
+        margin: 0 10px;
+        font-size: 1rem;
+      }
+      
+      section {
+        padding: 50px 20px;
+        margin: 30px 15px;
+      }
+      
+      section h2 {
+        font-size: 2rem;
+      }
+      
+      .btn {
+        padding: 15px 25px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="crown-icon fas fa-crown"></i>Chartino Investment<i class="crown-icon fas fa-crown"></i></h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#choose">Why Choose Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h2>Welcome to Chartino Investment</h2>
+    <p>
+      Step into the exclusive world of <strong>NEPSE Trading</strong> with Chartino Investment.  
+      We provide premium guidance, transparent strategies, and a royal experience for discerning investors.  
+      Your journey to financial excellence begins here.
+    </p>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      At Chartino Investment, we offer elite guidance in the Nepal Stock Exchange.  
+      Our expert team of financial connoisseurs ensures that every investor,  
+      receives personalized attention, sophisticated market insights, and strategic wealth management.
+    </p>
+  </section>
+
+  <section id="choose">
+    <h2>Why Choose Us?</h2>
+    <p>Trusted and transparent investment strategies</p>
+    <p>Experienced team with profound NEPSE expertise</p>
+    <p>Personalized guidance for exclusive clientele</p>
+    <p>Royal-class service with visionary approach</p>
+    <p>Premium market insights and analysis</p>
+  </section>
+
+  <section id="contact">
+    <h2>Connect With Us</h2>
+    <p>Join our exclusive community of successful investors</p>
+    <a href="https://chat.whatsapp.com/IU1f4K47mc4G16dtobm1rU?mode=ems_copy_t" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i>Join on WhatsApp</a>
+    <a href="https://www.facebook.com/share/1GAktkUQxi/" class="btn btn-facebook"><i class="fab fa-facebook-f"></i>Follow on Facebook</a>
+  </section>
+
+  <footer>
+    © 2025 Chartino Investment | Crafted with Royal Excellence
+  </footer>
+</body>
+</html>
